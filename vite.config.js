@@ -4,9 +4,6 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   plugins: [react()],
   base: '/nimble/',
-  build: {
-    outDir: 'dist'
-  },
   server: {
     proxy: {
       '/api': {
