@@ -3,8 +3,8 @@ import React from 'react';
 
 const CreateContactForm = () => {
   return (
-    <div className="flex-[0_0_280px]">
-      <div>
+    <div className="flex-[0_0_280px] self-stretch">
+      <div className="static lg:sticky top-3">
         <h2 className="title mb-0.5">Create Contact</h2>
         <Formik
           initialValues={{ firstName: '', lastName: '', email: '' }}

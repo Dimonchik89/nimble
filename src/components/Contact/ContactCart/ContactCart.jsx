@@ -1,30 +1,47 @@
-import Tag from '../../Tag/Tag';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import TagList from '../../Tag/TagList';
+import ContactCompanyTitle from '../ContactCompanyTitle/ContactCompanyTitle';
+import ContactUserTitle from '../ContactUserTitle/ContactUserTitle';
 
-const ContactCart = () => {
+const ContactCart = ({ contact }) => {
+  const { id, fields, avatar_url, tags } = contact;
+
+  useEffect(() => {
+    console.log(JSON.stringify(tags, null, 2));
+  }, [contact]);
+
+  // company name
+
+  const contactTitle = fields['first name'] ? (
+    <ContactUserTitle
+      firstName={fields['first name'][0].value}
+      lastName={fields['last name'][0].value}
+    />
+  ) : (
+    <ContactCompanyTitle companyName={fields['company name'][0].value} />
+  );
+
+  const contactEmail = fields.email && (
+    <div className="mb-1.5">
+      <p className="contact__title">{fields.email[0].value}</p>
+    </div>
+  );
+
   return (
     <div className="pt-3 pr-5 pb-6 pl-4 bg-gray-200 rounded-sm relative">
-      <div className="flex gap-3">
-        <img
-          src="https://live.devnimble.com/api/avatars/person_default"
-          alt="avatar"
-          className="w-[59px] h-[59px] rounded-full"
-        />
-        <div className="flex flex-col gap-3">
-          <div>
-            <div className="flex gap-1">
-              <h3 className="contact__title">First name</h3>
-              <h3 className="contact__title">last name</h3>
+      <Link to={`/contact/${contact.id}`}>
+        <div className="flex gap-3">
+          <img src={avatar_url} alt="avatar" className="w-[59px] h-[59px] rounded-full" />
+          <div className="flex flex-col gap-3">
+            <div>
+              {contactTitle}
+              {contactEmail}
             </div>
-            <div className="mb-1.5">
-              <p className="contact__title">email@email.com</p>
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <Tag title={'Tag1'} />
-            <Tag title={'Tag2'} />
+            <TagList tags={tags} />
           </div>
         </div>
-      </div>
+      </Link>
       <button className="absolute top-2.5 right-4 pointer">
         <img src="/icons/close.svg" />
       </button>

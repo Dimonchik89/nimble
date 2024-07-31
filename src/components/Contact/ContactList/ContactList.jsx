@@ -1,20 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useGetAllContactsQuery } from '../../../store/api/contactApi';
 import Spinner from '../../Spinner/Spinner';
 import ContactCart from '../ContactCart/ContactCart';
 
 const ContactList = () => {
   const { data, error, isLoading } = useGetAllContactsQuery();
-
-  // useEffect(() => {
-  //   // console.log(JSON.stringify(data?.resources[0].fields['first name'][0].value, null, 2));
-  //   console.log(JSON.stringify(data?.resources[0], null, 2));
-  //   console.log(import.meta.env.VITE_APP_AUTHORIZATION_TOKEN);
-  // }, [data]);
-
-  useEffect(() => {
-    console.log(error);
-  }, [error]);
 
   if (isLoading) {
     return <Spinner />;
@@ -23,10 +13,12 @@ const ContactList = () => {
     return <p className="w-full text-center">{`Error: ${error.originalStatus}`}</p>;
   }
 
+  const content = data?.resources.map((item) => <ContactCart key={item.id} contact={item} />);
+
   return (
-    <div className="flex-auto">
+    <div className="flex-auto w-full">
       <h1 className="title mb-1">Contacts</h1>
-      <ContactCart />
+      <div className="flex flex-col gap-[14px] lg:gap-[16px]">{content}</div>
     </div>
   );
 };
