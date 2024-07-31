@@ -2,7 +2,7 @@ import React from 'react';
 import TagITem from '../TagItem/TagItem';
 
 const TabList = ({ tags, title }) => {
-  const content = tags?.map((item) => <TagITem ley={item.id} title={item.tag} />);
+  const content = tags?.map((item) => <TagITem key={item.id} title={item.tag} />);
 
   return (
     <div>

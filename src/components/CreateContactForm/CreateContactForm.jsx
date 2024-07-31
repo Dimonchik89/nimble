@@ -32,7 +32,6 @@ const CreateContactForm = () => {
           }}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
               setSubmitting(false);
             }, 400);
           }}
@@ -82,7 +81,7 @@ const CreateContactForm = () => {
                 <p className="form__error">{errors.email && touched.email && errors.email}</p>
               </div>
               <button
-                className="border-2 border-gray-300 rounded-lg text-base py-2 w-full mt-5"
+                className="border-2 border-gray-300 rounded-lg text-base py-2 w-full mt-5 cursor-pointer"
                 type="submit"
                 disabled={isSubmitting}
               >

@@ -1,17 +1,14 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useDeleteContactMutation } from '../../../store/api/contactApi';
 import TagList from '../../Tag/TagList';
 import ContactCompanyTitle from '../ContactCompanyTitle/ContactCompanyTitle';
 import ContactUserTitle from '../ContactUserTitle/ContactUserTitle';
 
 const ContactCart = ({ contact }) => {
   const { id, fields, avatar_url, tags } = contact;
+  const [deleteContact, { isLoading }] = useDeleteContactMutation();
 
-  useEffect(() => {
-    console.log(JSON.stringify(tags, null, 2));
-  }, [contact]);
-
-  // company name
+  // console.log(contact);
 
   const contactTitle = fields['first name'] ? (
     <ContactUserTitle
@@ -30,7 +27,7 @@ const ContactCart = ({ contact }) => {
 
   return (
     <div className="pt-3 pr-5 pb-6 pl-4 bg-gray-200 rounded-sm relative">
-      <Link to={`/contact/${contact.id}`}>
+      <Link to={`/contact/${id}`}>
         <div className="flex gap-3">
           <img src={avatar_url} alt="avatar" className="w-[59px] h-[59px] rounded-full" />
           <div className="flex flex-col gap-3">
@@ -42,7 +39,11 @@ const ContactCart = ({ contact }) => {
           </div>
         </div>
       </Link>
-      <button className="absolute top-2.5 right-4 pointer">
+      <button
+        className="absolute top-2.5 right-4 pointer"
+        onClick={() => deleteContact(id)}
+        disabled={isLoading}
+      >
         <img src="/icons/close.svg" />
       </button>
     </div>
