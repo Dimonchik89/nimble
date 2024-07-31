@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
-const BASE_URL = '/api/v1';
+const BASE_URL = 'https://live.devnimble.com/api/v1';
 
 export const contactApi = createApi({
   reducerPath: 'contactApi',
