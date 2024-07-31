@@ -1,3 +1,5 @@
+import Tag from '../../Tag/Tag';
+
 const ContactCart = () => {
   return (
     <div className="pt-3 pr-5 pb-6 pl-4 bg-gray-200 rounded-sm relative">
@@ -18,9 +20,8 @@ const ContactCart = () => {
             </div>
           </div>
           <div className="flex flex-wrap gap-2">
-            <div className="px-3 py-0.5 bg-slate-400 rounded-md">
-              <p className="text-sm">Tag1</p>
-            </div>
+            <Tag title={'Tag1'} />
+            <Tag title={'Tag2'} />
           </div>
         </div>
       </div>
