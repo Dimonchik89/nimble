@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useGetAllContactsQuery } from '../../../store/api/contactApi';
-import ContactItem from '../ContactItem/ContactItem';
+import ContactCart from '../ContactCart/ContactCart';
 
 const ContactList = () => {
   const { data, error, isLoading } = useGetAllContactsQuery();
@@ -14,7 +14,7 @@ const ContactList = () => {
   return (
     <div className="flex-auto">
       <h1 className="title mb-1">Contacts</h1>
-      <ContactItem />
+      <ContactCart />
     </div>
   );
 };

@@ -6,6 +6,10 @@
   @apply text-xl font-medium;
 }
 
+.contact__title {
+  @apply text-base font-medium text-black;
+}
+
 .form__input {
   @apply border-2 border-gray-300 rounded-lg text-xl px-2 py-2.5 w-full;
 }
