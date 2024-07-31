@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.title {
+  @apply text-xl font-medium;
+}
+
+.form__input {
+  @apply border-2 border-gray-300 rounded-lg text-xl px-2 py-2.5 w-full;
+}
+
+.form__error {
+  @apply text-xs text-red-500 h-4;
+}
