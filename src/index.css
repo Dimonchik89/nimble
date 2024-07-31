@@ -11,7 +11,11 @@
 }
 
 .form__input {
-  @apply border-2 border-gray-300 rounded-lg text-xl px-2 py-2.5 w-full;
+  @apply border-2 border-gray-300 rounded-lg text-lg px-2 py-2.5 w-full;
+}
+
+.form__button {
+  @apply border-2 border-gray-300 rounded-lg text-base py-2 w-full mt-5 cursor-pointer hover:bg-gray-200 duration-200 ease-in;
 }
 
 .form__error {

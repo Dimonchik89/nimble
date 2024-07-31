@@ -1,2 +1,9 @@
-export { default as ContactList } from "./Contact/ContactList";
-export { default as CreateContactForm } from "./CreateContactForm";
+export { default as ContactCard } from './Contact/ContactCard';
+export { default as ContactCompanyTitle } from './Contact/ContactCompanyTitle';
+export { default as ContactList } from './Contact/ContactList';
+export { default as ContactUserTitle } from './Contact/ContactUserTitle';
+export { default as CreateContactForm } from './CreateContactForm';
+export { default as CreateTagForm } from './CreateTagForm';
+export { default as ErrorComponent } from './ErrorComponent';
+export { default as Spinner } from './Spinner';
+export { default as TagList } from './Tag/TagList';

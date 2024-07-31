@@ -1,7 +1,20 @@
 import { Formik } from 'formik';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { ErrorComponent, Spinner } from '../';
+import { useCreateContactMutation } from '../../store/api/contactApi';
 
 const CreateContactForm = () => {
+  const [createContact, { isLoading, isError, error }] = useCreateContactMutation();
+  const [showError, setShowError] = useState(false);
+
+  useEffect(() => {
+    setShowError(true);
+
+    setTimeout(() => {
+      setShowError(false);
+    }, [3000]);
+  }, [isError]);
+
   return (
     <div className="flex-[0_0_280px] self-stretch">
       <div className="static lg:sticky top-3">
@@ -30,10 +43,24 @@ const CreateContactForm = () => {
 
             return errors;
           }}
-          onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              setSubmitting(false);
-            }, 400);
+          onSubmit={async (values, { setSubmitting, resetForm }) => {
+            const data = {
+              privacy: {
+                edit: null,
+                read: null
+              },
+              record_type: 'person',
+              fields: {
+                'first name': [{ value: values.firstName, modifier: '', label: 'first name' }],
+                'last name': [{ value: values.lastName, modifier: '', label: 'last name' }],
+                email: [{ value: values.email, modifier: '', label: 'email' }]
+              },
+              owner_id: null
+            };
+
+            await createContact(data);
+            resetForm();
+            setSubmitting(false);
           }}
         >
           {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
@@ -80,13 +107,23 @@ const CreateContactForm = () => {
                 />
                 <p className="form__error">{errors.email && touched.email && errors.email}</p>
               </div>
-              <button
-                className="border-2 border-gray-300 rounded-lg text-base py-2 w-full mt-5 cursor-pointer"
-                type="submit"
-                disabled={isSubmitting}
-              >
-                Add Contact
-              </button>
+              {showError && isError && (
+                <ErrorComponent
+                  style={showError ? 'block' : 'hidden'}
+                  status={error?.originalStatus}
+                />
+              )}
+              {isLoading ? (
+                <Spinner />
+              ) : (
+                <button
+                  className={`form__button ${showError && isError ? 'hidden' : 'block'}`}
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  Add Contact
+                </button>
+              )}
             </form>
           )}
         </Formik>

@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Spinner = () => {
+const Spinner = ({ style }) => {
   return (
     <div className="flex justify-center w-full">
-      <div className="loader"></div>
+      <div className={`loader ${style}`}></div>
     </div>
   );
 };

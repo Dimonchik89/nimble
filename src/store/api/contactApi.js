@@ -9,7 +9,6 @@ export const contactApi = createApi({
     prepareHeaders: (headers) => {
       headers.set('Content-Type', 'application/json');
       headers.set('Authorization', `Bearer ${import.meta.env.VITE_APP_AUTHORIZATION_TOKEN}`);
-      headers.set('X-Nimble-Token', `${import.meta.env.VITE_APP_AUTHORIZATION_TOKEN}`);
       return headers;
     }
   }),
@@ -19,16 +18,42 @@ export const contactApi = createApi({
         url: '/contacts',
         params: { sort: 'created:desc' }
       }),
-      providesTags: ['contact']
+      providesTags: ['contacts']
+    }),
+    getOneContact: builder.query({
+      query: (id) => `/contact/${id}`,
+      providesTags: ['one-contact']
+    }),
+    createContact: builder.mutation({
+      query: (data) => ({
+        url: '/contact',
+        body: data,
+        method: 'POST'
+      }),
+      invalidatesTags: ['contacts']
     }),
     deleteContact: builder.mutation({
       query: (id) => ({
         url: `/contact/${id}`,
         method: 'DELETE'
       }),
-      invalidatesTags: ['contact']
+      invalidatesTags: ['contacts']
+    }),
+    addTag: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/contacts/${id}/tags`,
+        method: 'PUT',
+        body: data
+      }),
+      invalidatesTags: ['one-contact', 'contacts']
     })
   })
 });
 
-export const { useGetAllContactsQuery, useDeleteContactMutation } = contactApi;
+export const {
+  useGetAllContactsQuery,
+  useDeleteContactMutation,
+  useCreateContactMutation,
+  useGetOneContactQuery,
+  useAddTagMutation
+} = contactApi;

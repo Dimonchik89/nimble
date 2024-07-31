@@ -1,19 +1,18 @@
 import React from 'react';
+import { ContactCard, ErrorComponent, Spinner } from '../../';
 import { useGetAllContactsQuery } from '../../../store/api/contactApi';
-import Spinner from '../../Spinner/Spinner';
-import ContactCart from '../ContactCart/ContactCart';
 
 const ContactList = () => {
-  const { data, error, isLoading } = useGetAllContactsQuery();
+  const { data, isError, error, isLoading, refetch } = useGetAllContactsQuery();
 
   if (isLoading) {
     return <Spinner />;
   }
-  if (error) {
-    return <p className="w-full text-center">{`Error: ${error.originalStatus}`}</p>;
+  if (isError) {
+    return <ErrorComponent status={error.originalStatus} showRefetch={true} refetch={refetch} />;
   }
 
-  const content = data?.resources.map((item) => <ContactCart key={item.id} contact={item} />);
+  const content = data?.resources.map((item) => <ContactCard key={item.id} contact={item} />);
 
   return (
     <div className="flex-auto w-full">

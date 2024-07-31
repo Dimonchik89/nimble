@@ -1,14 +1,20 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { ContactCompanyTitle, ContactUserTitle, ErrorComponent, Spinner, TagList } from '../..';
 import { useDeleteContactMutation } from '../../../store/api/contactApi';
-import TagList from '../../Tag/TagList';
-import ContactCompanyTitle from '../ContactCompanyTitle/ContactCompanyTitle';
-import ContactUserTitle from '../ContactUserTitle/ContactUserTitle';
 
-const ContactCart = ({ contact }) => {
+const ContactCard = ({ contact }) => {
   const { id, fields, avatar_url, tags } = contact;
-  const [deleteContact, { isLoading }] = useDeleteContactMutation();
+  const [deleteContact, { isLoading, isError, error }] = useDeleteContactMutation();
+  const [showError, setShowError] = useState(false);
 
-  // console.log(contact);
+  useEffect(() => {
+    setShowError(true);
+
+    setTimeout(() => {
+      setShowError(false);
+    }, [4000]);
+  }, [isError]);
 
   const contactTitle = fields['first name'] ? (
     <ContactUserTitle
@@ -39,15 +45,23 @@ const ContactCart = ({ contact }) => {
           </div>
         </div>
       </Link>
-      <button
-        className="absolute top-2.5 right-4 pointer"
-        onClick={() => deleteContact(id)}
-        disabled={isLoading}
-      >
-        <img src="/icons/close.svg" />
-      </button>
+      {isLoading ? (
+        <Spinner style={'!w-5 absolute top-2.5 right-4'} />
+      ) : (
+        <button
+          className="absolute top-2.5 right-4 pointer hover:scale-105 duration-100 ease-in"
+          onClick={() => deleteContact(id)}
+          disabled={isLoading}
+        >
+          {showError && isError ? (
+            <ErrorComponent status={error?.originalStatus} />
+          ) : (
+            <img src="/icons/close.svg" />
+          )}
+        </button>
+      )}
     </div>
   );
 };
 
-export default ContactCart;
+export default ContactCard;
