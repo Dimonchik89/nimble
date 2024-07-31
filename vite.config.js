@@ -1,17 +1,19 @@
-import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  base: '/nimble/',
+  build: {
+    outDir: 'dist'
+  },
   server: {
     proxy: {
-      // Маршруты, которые вы хотите проксировать
-      "/api": {
-        target: "https://live.devnimble.com",
+      '/api': {
+        target: 'https://live.devnimble.com',
         changeOrigin: true,
-        secure: false,
-      },
-    },
-  },
+        secure: false
+      }
+    }
+  }
 });
