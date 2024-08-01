@@ -20,7 +20,7 @@
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const apiProxy = createProxyMiddleware({
-  target: 'https://example.org',
+  target: 'https://live.devnimble.com',
   changeOrigin: true,
   pathRewrite: {
     '^/api': ''
