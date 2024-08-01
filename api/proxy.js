@@ -23,7 +23,7 @@ const apiProxy = createProxyMiddleware({
   target: 'https://live.devnimble.com',
   changeOrigin: true,
   pathRewrite: {
-    '^/api': ''
+    '': ''
   },
   path: req.url,
   method: req.method,
