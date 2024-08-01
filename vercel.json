@@ -15,8 +15,8 @@
   ],
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "https://live.devnimble.com"
+      "source": ":path*",
+      "destination": "https://live.devnimble.com:path*"
     }
   ]
 }
